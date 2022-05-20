@@ -1,3 +1,5 @@
+//John Brent David
+//BSCS 2-1
 public class my_animal {
 
     public static void main(String[] args) {
