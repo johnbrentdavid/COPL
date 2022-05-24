@@ -3,7 +3,9 @@
 public class my_animal {
 
     public static void main(String[] args) {
+        //Instantiation of OBJECTS
         dog dog1 = new dog("Gorou","Malamute",60,"Brown");
+    //Overloaded dog object
         dog dogA = new dog("Chi Chi","Chihuahua","Arf Arf",20,"White");
         fish fish1= new fish("Bluefin","Ocean","Blueish","Large");
         bird bird1 = new bird("Philippine Eagle","Brown","Large","Monkey");

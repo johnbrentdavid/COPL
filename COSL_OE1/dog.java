@@ -4,7 +4,7 @@ public class dog extends animal {
     private String barkNoise = "Woof";
     // Breed and color is extended from animal.java
     public dog(String name, String breed,double wt, String color){
-        super(breed,color);
+        super(breed, color);//This is very important to use 
         this.name = name;
         this.wt = wt;
     }//end of constructor
