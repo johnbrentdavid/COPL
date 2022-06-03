@@ -1,7 +1,7 @@
-public abstract class Item {
+public abstract class Item {//public interface can work
     //GET methods
     abstract public String getStudentName();
-    abstract public String getDepartment();
+    abstract String getDepartment();
     abstract public String getStudentNo();
     abstract public String getProgram();
     //SET methods

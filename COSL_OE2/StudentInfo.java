@@ -34,5 +34,6 @@ public class StudentInfo {
         System.out.println("PROGRAM: "+s1.getProgram());
         System.out.println("=================================");
 
+
     }//end method main
 }//end class StudentInfo
