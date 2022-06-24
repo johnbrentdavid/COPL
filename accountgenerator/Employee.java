@@ -11,7 +11,9 @@ public class Employee {
     }
 //Step C
     public void toDisplay(){
+        String reversed = reverse(name);
         System.out.println("Employee Details\nName\t\t: "+name+"\nUsername\t: "+username+"\nEmail\t\t: "+email+"\nPassword\t: "+password+"");
+        System.out.print("Reversed String : \t"+reversed);
     }
 //Step D
     private int countChars(String word,char letter){
@@ -96,5 +98,13 @@ public class Employee {
         }
         return pass;
     }
+//Part 2 REVERSE THE STRING
+    public String reverse(String str){ 
+        String strRev = "";
+        for(int i=str.length()-1;i>=0;i--)
+            strRev+=str.charAt(i);
+            return strRev;//endfor return strRev;
+    }//end method reverse
+
 
 }//end of class
