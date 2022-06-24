@@ -31,6 +31,7 @@ public class Employee {
         String name;
         System.out.print("Please Enter Your Name :");
         name = in.nextLine();
+        in.close();
         return name;
     }
 //Step G done
