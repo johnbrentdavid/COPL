@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 //Step B
 public class Employee {
     private final String name,username,email;
@@ -28,9 +30,22 @@ public class Employee {
 //STEP F
     public String setName(){
         Scanner in = new Scanner(System.in);
-        String name;
-        System.out.print("Please Enter Your Name :");
-        name = in.nextLine();
+        String name = "",checker;
+        String regex = "^[a-zA-Z]+\\s[a-zA-Z]+$";
+        boolean accept = true;
+
+        while(accept){
+            System.out.print("Please Enter Your Name :");
+            checker = in.nextLine();
+            if(Pattern.matches(regex,checker)){
+                name = checker;
+                accept = false;
+                break;
+            }
+            else{
+                System.out.println("Wrong input! Try Again!");
+            }
+        }
         in.close();
         return name;
     }
@@ -42,6 +57,7 @@ public class Employee {
                 username+=name.substring(0, i).toLowerCase();//saves the firstname before the space and lowercases it
                 username+='.';
                 username+=name.substring(i+1,name.length()).toLowerCase();//saves the last after the space and lowercases it
+                break;
             }
         }
         return username.toLowerCase();//just to make sure that everything is lowercased.
@@ -82,9 +98,10 @@ public class Employee {
                     pass+=username.charAt(i);
                 }
             }
-            //Needs a while loop to satisfy the password limit
+            //Needs a while loop to reach the password limit
             while (len != limit){
                 pass+='*';
+                len++;
             }
         }
         else{
