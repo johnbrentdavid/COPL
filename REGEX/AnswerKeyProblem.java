@@ -19,7 +19,6 @@ public class AnswerKeyProblem {
         }//endwhile
         System.out.println("Valid Answers : "+answer);
         System.out.println("Final Answers : "+ finalAnswers(answer) );
-
     }//end method main
 
     public static String Check(String line){//checks if the line is viable or not
@@ -36,7 +35,6 @@ public class AnswerKeyProblem {
     }//end of Check method
 
     public static String finalAnswers(String line){
-        String regex = "^[e-fE-F]$";
         String fanswer="",chr="";
         for(int i =0;i<line.length();i++){
             chr += line.charAt(i);
