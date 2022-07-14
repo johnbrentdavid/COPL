@@ -7,7 +7,7 @@ public class converter {
         boolean repeat = true;
         String input;
         Scanner in = new Scanner(System.in);
-        
+        int dcs;
         
 //MAIN LOOP
         while(repeat){
@@ -15,16 +15,21 @@ public class converter {
             input = in.nextLine();
             if(input.matches("\\d*.\\d*\\s[ped]t[ped]")){//check if user input is like this (100.00 pte,199 etp,etc.)
                 Convertion c = new Convertion(Amount(input),C1(input),C2(input));
+                c.printRates();
                 c.printConvertion();
                 System.out.println(c.getCAmount()+" "+c.getCurrency2()+"/s");
                 System.out.print("[0] - Exit the Program\n[1] - Convert Again\nDecision>");
-                input = in.next();
-                if(input == "0")
+                dcs = in.nextInt();
+                if(dcs == 0){
                     repeat = false;
-                    break;
+                }
+                else{
+                    input = "";
+                }
+                
             }
             else{
-                System.out.println("Wrong Input! Try AGAIN! Press [1] to CONTINUE");
+                System.out.println("Wrong Input! Try AGAIN!");
                 System.out.println("\033[H\033[2J");
                 System.out.flush(); 
             }

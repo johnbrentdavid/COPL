@@ -3,7 +3,7 @@
 public class Convertion implements iconvertion{
     
     public double amount;
-    public final double ptd =.018,dtp=56.31,pte=.018,etp=57;//The base value is 1 for each convertion
+    public final double ptd =.018,dtp=56.31,pte=.018,etp=56.43;//The base value is 1 for each convertion
     public String currency1,currency2;
 //CONSTRUCTOR
     public Convertion(double amount,String currency1,String currency2){
@@ -53,7 +53,7 @@ public class Convertion implements iconvertion{
         "\n1 Peso to Dollar :\t"+ptd+
         "\n1 Peso to Euro :\t"+pte+
         "\n1 Dollar to Peso :\t"+dtp+
-        "\n1 Euro to Peso :\t"+etp);
+        "\n1 Euro to Peso :\t"+etp+"\n");
     }
 
 //DEFINED METHODS
