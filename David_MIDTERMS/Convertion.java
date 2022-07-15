@@ -45,15 +45,15 @@ public class Convertion implements iconvertion{
         return this.currency2;
     }
     public void printConvertion(){
-        String last= currency1 +" to "+currency2;
+        String last= amount+" "+currency1 +" to "+currency2;
         System.out.println(last);
     }
     public void printRates(){
-        System.out.println("\nAs of "+date+
-        "\n1 Peso to Dollar :\t"+ptd+
+        System.out.println("\n=============================\n    As of "+date+
+        "\n+++++++++++++++++++++++++++++\n1 Peso to Dollar :\t"+ptd+
         "\n1 Peso to Euro :\t"+pte+
         "\n1 Dollar to Peso :\t"+dtp+
-        "\n1 Euro to Peso :\t"+etp+"\n");
+        "\n1 Euro to Peso :\t"+etp+"\n-----------------------------");
     }
 
 //DEFINED METHODS
