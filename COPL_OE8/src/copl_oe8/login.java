@@ -103,6 +103,7 @@ public class login {
 						USERNAME = txtUsername.getText();
 						dashboard welcome = new dashboard(USERNAME);
 						welcome.dashframe.setVisible(true);
+						welcome.viewRecord();
 						loginframe.dispose();
 						
 					}
