@@ -56,6 +56,7 @@ public class login {
 	 */
 	private void initialize() {
 		loginframe = new JFrame();
+		loginframe.getContentPane().setBackground(Color.WHITE);
 		loginframe.setTitle("Login");
 		loginframe.setBounds(100, 100, 669, 500);
 		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,14 +73,14 @@ public class login {
 		loginframe.getContentPane().add(lblPassword);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBorder(UIManager.getBorder("TextPane.border"));
+		txtUsername.setBorder(UIManager.getBorder("TextField.border"));
 		txtUsername.setBounds(207, 149, 329, 42);
 		loginframe.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.setBorder(UIManager.getBorder("Button.border"));
-		btnLogin.setBackground(new Color(100, 149, 237));
+		btnLogin.setBackground(UIManager.getColor("Button.highlight"));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -126,7 +127,7 @@ public class login {
 		
 		JButton btnClose = new JButton("CLOSE");
 		btnClose.setBorder(UIManager.getBorder("Button.border"));
-		btnClose.setBackground(new Color(100, 149, 237));
+		btnClose.setBackground(UIManager.getColor("Button.highlight"));
 		btnClose.setBounds(412, 341, 124, 57);
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
