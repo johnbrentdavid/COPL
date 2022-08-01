@@ -413,49 +413,6 @@ public class dashboard {
 				System.out.println(e);
 			}
 		}
-		public void viewOneRecord(String add) {
-			Connection con = connect();
-			DefaultTableModel mod = new DefaultTableModel();
-			mod.addColumn("ID");
-			mod.addColumn("Student No");
-			mod.addColumn("Student Name");
-			mod.addColumn("Gender");
-			mod.addColumn("Contact No");
-			mod.addColumn("Address");
-			mod.addColumn("Date of Registration");
-			
-			try {
-				String sql = "SELECT * FROM student_tbl WHERE "+add;
-				Statement st = (Statement) con.createStatement();
-				ResultSet rs = st.executeQuery(sql);
-				while(rs.next()) {
-					mod.addRow(new Object[]{
-						rs.getInt("id"),
-						rs.getString("student_no"),
-						rs.getString("student_name"),
-						rs.getString("gender"),
-						rs.getString("contact_no"),
-						rs.getString("address"),
-						rs.getString("date_created")
-					});	
-				}
-				rs.close();
-				st.close();
-				con.close();
-				
-				tableView.setModel(mod);
-				tableView.setAutoResizeMode(0);
-				tableView.getColumnModel().getColumn(0).setPreferredWidth(30);//ID
-				tableView.getColumnModel().getColumn(1).setPreferredWidth(90);//Student Number
-				tableView.getColumnModel().getColumn(2).setPreferredWidth(135);//Student Name
-				tableView.getColumnModel().getColumn(3).setPreferredWidth(60);//Gender
-				tableView.getColumnModel().getColumn(4).setPreferredWidth(100);//Contact
-				tableView.getColumnModel().getColumn(5).setPreferredWidth(115);//Address
-				tableView.getColumnModel().getColumn(6).setPreferredWidth(125);//Date of Registration
-			}catch(Exception e) {
-				System.out.println(e);
-			}
-		}
 		//DELETE METHOD
 		public void deleteRecord(String sno) {
 			Connection con = connect();
@@ -557,63 +514,50 @@ public class dashboard {
 		}
 		//SEARCH METHOD
 		public void searchTable() {
+			DefaultTableModel mod = new DefaultTableModel();
+			mod.addColumn("ID");
+			mod.addColumn("Student No");
+			mod.addColumn("Student Name");
+			mod.addColumn("Gender");
+			mod.addColumn("Contact No");
+			mod.addColumn("Address");
+			mod.addColumn("Date of Registration");
 			Connection con = connect();
-			boolean found = false;
 			try {
-				String sql = "SELECT * FROM student_tbl";
+				String sql = "SELECT * FROM student_tbl WHERE id LIKE '%"+ txtSearch.getText()
+							+"%' OR student_no LIKE '%"+ txtSearch.getText()
+							+"%' OR student_name LIKE '%"+ txtSearch.getText()
+							+"%' OR gender LIKE '"+ txtSearch.getText()
+							+"' OR contact_no LIKE '%"+ txtSearch.getText()
+							+"%' OR address LIKE '%"+ txtSearch.getText()+"%'";
 				Statement st = (Statement) con.createStatement();
 				ResultSet rs = st.executeQuery(sql);
-				String add = "";
-				while(rs.next()) {
-
-					if(rs.getString(1).equals(txtSearch.getText())) {//compare to id
-						add="id = "+txtSearch.getText().trim();
-						viewOneRecord(add);
-						found = true;
-						break;
+					while(rs.next()) {
+						mod.addRow(new Object[]{
+							rs.getString("id"),
+							rs.getString("student_no"),
+							rs.getString("student_name"),
+							rs.getString("gender"),
+							rs.getString("contact_no"),
+							rs.getString("address"),
+							rs.getString("date_created")
+						});	
 					}
-					else if(rs.getString("student_no").equals(txtSearch.getText())) {//compare to student_no
-						add="student_no LIKE '%"+txtSearch.getText()+"%'";
-						viewOneRecord(add);
-						found = true;
-						break;
-					}
-					else if(rs.getString("student_name").equals(txtSearch.getText())) {//compare to student_name
-						add="student_name = '"+txtSearch.getText()+"'";
-						viewOneRecord(add);
-						found = true;
-						break;
-					}
-					else if(rs.getString("gender").equals(txtSearch.getText())) {//compare to gender
-						add="gender LIKE '"+txtSearch.getText()+"'";
-						viewOneRecord(add);
-						found = true;
-						break;
-					}
-					else if(rs.getString("contact_no").equals(txtSearch.getText())) {//compare to contact_no
-						add="contact_no = '"+txtSearch.getText()+"'";
-						viewOneRecord(add);
-						found = true;
-						break;
-					}
-					else if(rs.getString("address").trim().equals(txtSearch.getText())) {//compare to address
-						add="address = '"+txtSearch.getText()+"'";
-						viewOneRecord(add);
-						found = true;
-						break;
-					}
-				}//end of while loop
-				if(!found) {
-					JOptionPane.showMessageDialog(null,"Not found on Student Records.");
-					viewRecord();
-				}
-				st.close();rs.close();
+					rs.close();
+					st.close();
+					con.close();
+					tableView.setModel(mod);
+					tableView.setAutoResizeMode(0);
+					tableView.getColumnModel().getColumn(0).setPreferredWidth(30);//ID
+					tableView.getColumnModel().getColumn(1).setPreferredWidth(90);//Student Number
+					tableView.getColumnModel().getColumn(2).setPreferredWidth(135);//Student Name
+					tableView.getColumnModel().getColumn(3).setPreferredWidth(60);//Gender
+					tableView.getColumnModel().getColumn(4).setPreferredWidth(100);//Contact
+					tableView.getColumnModel().getColumn(5).setPreferredWidth(115);//Address
+					tableView.getColumnModel().getColumn(6).setPreferredWidth(125);//Date of Registration
+					
 			}catch(Exception e) {
 				System.out.println(e);
-			}//end of first try catch
-			
-			
-		}
-		
-		
+			}
+		}//end of method
 }
