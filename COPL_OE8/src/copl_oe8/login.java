@@ -24,10 +24,12 @@ import javax.swing.JPasswordField;
 public class login {
 
 	public JFrame loginframe;
-	private JTextField txtUsername;
+	public JTextField txtUsername;
 	public String USERNAME;
-	private JPasswordField txtPassword;
-
+	public JPasswordField txtPassword;
+	private JPasswordField txtPassword2;
+	private JLabel lblPassword2;
+	private JButton btnReg;
 	/**
 	 * Launch the application.
 	 */
@@ -37,6 +39,9 @@ public class login {
 				try {
 					login window = new login();
 					window.loginframe.setVisible(true);
+					window.txtPassword2.setVisible(false);
+					window.lblPassword2.setVisible(false);
+					window.btnReg.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +62,7 @@ public class login {
 	private void initialize() {
 		loginframe = new JFrame();
 		loginframe.getContentPane().setBackground(Color.WHITE);
-		loginframe.setTitle("Login");
+		loginframe.setTitle("Sign In");
 		loginframe.setBounds(100, 100, 669, 500);
 		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginframe.getContentPane().setLayout(null);
@@ -69,7 +74,7 @@ public class login {
 		
 		JLabel lblPassword = new JLabel(" Password:");
 		lblPassword.setFont(new Font("Palatino Linotype", Font.BOLD, 18));
-		lblPassword.setBounds(93, 250, 98, 42);
+		lblPassword.setBounds(93, 224, 98, 42);
 		loginframe.getContentPane().add(lblPassword);
 		
 		txtUsername = new JTextField();
@@ -78,6 +83,63 @@ public class login {
 		loginframe.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
+		JLabel lblOutcomesEvalution = new JLabel("COPL Finals Exam");
+		lblOutcomesEvalution.setFont(new Font("Palatino Linotype", Font.BOLD, 34));
+		lblOutcomesEvalution.setBounds(188, 28, 301, 57);
+		loginframe.getContentPane().add(lblOutcomesEvalution);
+		
+		JLabel lblDev = new JLabel("-by John Brent David");
+		lblDev.setFont(new Font("Palatino Linotype", Font.BOLD, 14));
+		lblDev.setBounds(336, 57, 179, 42);
+		loginframe.getContentPane().add(lblDev);
+		
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(207, 222, 329, 42);
+		loginframe.getContentPane().add(txtPassword);
+		
+		btnReg = new JButton("REGISTER");
+		btnReg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtUsername.getText().trim().equals("")&& !txtPassword.getText().trim().equals("")&& !txtPassword2.getText().trim().equals(""))	{
+					if(txtPassword.getText().trim().equals(txtPassword2.getText()))	{
+						if(!Verify()) {
+							Register();
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Username is already taken!");
+					}else {
+						JOptionPane.showMessageDialog(null,"Password fields does not match!");
+					}
+				}
+				else 
+					JOptionPane.showMessageDialog(null,"All text fields should be filled!");
+				
+			}
+		});
+		btnReg.setBorder(UIManager.getBorder("Button.border"));
+		btnReg.setBackground(UIManager.getColor("Button.highlight"));
+		btnReg.setBounds(278, 357, 124, 57);
+		
+		loginframe.getContentPane().add(btnReg);
+		
+		JButton btnClear = new JButton("CLEAR");
+		btnClear.setBorder(UIManager.getBorder("Button.border"));
+		btnClear.setBackground(UIManager.getColor("Button.highlight"));
+		btnClear.setBounds(412, 357, 124, 57);
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try{
+					txtUsername.setText("");
+					txtPassword.setText("");
+					txtPassword2.setText("");
+				}catch(Exception ex) {
+					System.out.print(ex);
+				}
+			}
+		});
+		loginframe.getContentPane().add(btnClear);
+	
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.setBorder(UIManager.getBorder("Button.border"));
 		btnLogin.setBackground(UIManager.getColor("Button.highlight"));
@@ -101,10 +163,8 @@ public class login {
 				//condition for the username and password
 					if(rs.next()) {
 						//JOptionPane.showMessageDialog(null, "Login successful...","Login Alert",2);
-						USERNAME = txtUsername.getText();
-						dashboard welcome = new dashboard(USERNAME);
-						welcome.dashframe.setVisible(true);
-						welcome.viewRecord();
+						greet welcome = new greet(username);
+						welcome.frame.setVisible(true);
 						loginframe.dispose();
 						
 					}
@@ -122,39 +182,86 @@ public class login {
 				}
 			}
 		});
-		btnLogin.setBounds(278, 341, 124, 57);
+		btnLogin.setBounds(278, 357, 124, 57);
 		loginframe.getContentPane().add(btnLogin);
 		
-		JButton btnClose = new JButton("CLOSE");
-		btnClose.setBorder(UIManager.getBorder("Button.border"));
-		btnClose.setBackground(UIManager.getColor("Button.highlight"));
-		btnClose.setBounds(412, 341, 124, 57);
-		btnClose.addActionListener(new ActionListener() {
+		txtPassword2 = new JPasswordField();
+		txtPassword2.setBounds(207, 302, 329, 42);
+		loginframe.getContentPane().add(txtPassword2);
+		
+		lblPassword2 = new JLabel(" Retype Password:");
+		lblPassword2.setFont(new Font("Palatino Linotype", Font.BOLD, 18));
+		lblPassword2.setBounds(24, 304, 167, 42);
+		loginframe.getContentPane().add(lblPassword2);
+		
+		JButton btnChange = new JButton("Sign Up");
+		btnChange.setBackground(UIManager.getColor("Button.highlight"));
+		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				try{
-					loginframe.dispose();
-				}catch(Exception ex) {
-					System.out.print(ex);
+				if(btnChange.getText().equals("Sign Up"))	{
+					txtPassword2.setVisible(true);
+					lblPassword2.setVisible(true);
+					btnReg.setVisible(true);	
+					btnChange.setText("Sign In");
+					loginframe.setTitle("Sign Up");
+					btnLogin.setVisible(false);
+				}
+				else if (btnChange.getText().equals("Sign In")) {
+					txtPassword2.setVisible(false);
+					lblPassword2.setVisible(false);
+					btnReg.setVisible(false);	
+					btnChange.setText("Sign Up");
+					loginframe.setTitle("Sign In");
+					btnLogin.setVisible(true);
 				}
 			}
 		});
-		loginframe.getContentPane().add(btnClose);
+		btnChange.setBounds(547, 28, 98, 47);
+		loginframe.getContentPane().add(btnChange);
 		
-		JLabel lblOutcomesEvalution = new JLabel("OUTCOMES EVALUTION 8");
-		lblOutcomesEvalution.setFont(new Font("Palatino Linotype", Font.BOLD, 34));
-		lblOutcomesEvalution.setBounds(86, 25, 473, 57);
-		loginframe.getContentPane().add(lblOutcomesEvalution);
+	}//end of object
+	public boolean Verify() {
+		try {
+			//set the mysql jdbc driver
+			Class.forName("com.mysql.jdbc.Driver");
+			//set the mysql connection
+			Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/copl_db","root","");
+			Statement st = (Statement) con.createStatement();
+			
+			//sql query for register
+			String username = txtUsername.getText();
+				String sql = "SELECT * FROM users_tbl WHERE username ='"+username+"'";
+				ResultSet rs = st.executeQuery(sql);
+				if(rs.next()) {
+					return true;
+				}else
+					return false;
+				
+		}catch(Exception ex) {
+			System.out.print(ex);
+		}
+		return false;
 		
-		JLabel lblDev = new JLabel("-by John Brent David");
-		lblDev.setFont(new Font("Palatino Linotype", Font.BOLD, 14));
-		lblDev.setBounds(398, 55, 179, 42);
-		loginframe.getContentPane().add(lblDev);
-		
-		txtPassword = new JPasswordField();
-		txtPassword.setBounds(207, 248, 329, 42);
-		loginframe.getContentPane().add(txtPassword);
-		
-	
-	}
-}
+	}//end of verify method
+	public void Register() {
+		try {
+			//set the mysql jdbc driver
+			Class.forName("com.mysql.jdbc.Driver");
+			//set the mysql connection
+			Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/copl_db","root","");
+			Statement st = (Statement) con.createStatement();
+			
+			//sql query for register
+			String username = txtUsername.getText();
+			String password = txtPassword.getText();
+			String sql = "INSERT INTO users_tbl (username,password) VALUES ('"+username+"','"+password+"')";
+			st.execute(sql);
+			JOptionPane.showMessageDialog(null, "Record Successfully SAVED!");
+			txtUsername.setText("");
+			txtPassword.setText("");
+			txtPassword2.setText("");
+		}catch(Exception ex) {
+			System.out.print(ex);
+		}
+	}//end of  register method
+}//end of class
